@@ -27,5 +27,5 @@ if st.button("Search with Chat GPT"):
     response = search_in_gpt3(query)
     st.markdown(response, unsafe_allow_html=True)
 else:
-    st.markdown("Your results appear here.")
+    st.markdown(os.environ["OPENAI_API_KEY"])
     
