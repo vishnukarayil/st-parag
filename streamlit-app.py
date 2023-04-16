@@ -3,7 +3,7 @@ import streamlit as st
 import os
 
 # Authenticate OpenAI API Key
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "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"
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
 # Define the search_in_gpt3 function
