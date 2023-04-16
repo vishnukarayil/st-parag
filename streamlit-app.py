@@ -3,7 +3,6 @@ import streamlit as st
 import os
 
 # Authenticate OpenAI API Key
-os.environ["OPENAI_API_KEY"] = "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"
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
 # Define the search_in_gpt3 function
@@ -27,5 +26,5 @@ if st.button("Search with Chat GPT"):
     response = search_in_gpt3(query)
     st.markdown(response, unsafe_allow_html=True)
 else:
-    st.markdown(os.environ["OPENAI_API_KEY"])
+    st.markdown("Your results appear here")
     
