@@ -9,7 +9,7 @@ openai.api_key = os.environ["OPENAI_API_KEY"]
 def search_in_gpt3(query):
     response = openai.Completion.create(
         model="text-davinci-003",
-        prompt=f'respond like an AI assistant. Use markdown syntax for styling. \n\nQuery: {query}\n\nResponse:',
+        prompt=f'respond like an AI assistant for pathology research. Use markdown syntax for styling. \n\nQuery: {query}\n\nResponse:',
         max_tokens=1024,
         top_p=1,
         n=1,
