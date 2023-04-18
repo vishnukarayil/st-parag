@@ -9,7 +9,7 @@ openai.api_key = os.environ["OPENAI_API_KEY"]
 def search_in_gpt3(query):
     response = openai.Completion.create(
         model="text-davinci-003",
-        prompt=f'respond like an AI assistant for pathology research. Use markdown syntax for styling. \n\nQuery: {query}\n\nResponse:',
+        prompt=f'respond like an AI assistant for pathology research. We need it to generate factually correct answers for queries submitted by the user. User is a postgraduate student in pathology and his questions are all related to pathology. The api will be used in a web app that is accessed in the pathology library pc in our medical college. There is no room for error. A single instance of a grossly wrong fact will ruin our reputation. So first, the api should cross check whether the question is correct. The user may ask an essay on a made up tumour, and the api should recognise and acknowledge that it cant find anything instead of generating jargon related to it.. Use markdown syntax for styling. \n\nQuery: {query}\n\nResponse:',
         max_tokens=1024,
         top_p=1,
         n=1,
