@@ -26,9 +26,9 @@ def search_in_gpt3(query):
 
 # Set up the form
 st.title("PARAG: Pathology AI Research Assistant with GPT4")
-st.markdown("**Pathology education powered by AI**")
-query = st.text_input("Search anything related to pathology:")
-if st.button("Search with Chat GPT"):
+st.markdown("**Pathology education powered by ChatGPT. From the makers of www.pathonotes.com**")
+query = st.text_input("Search anything related to pathology:", value="", submit_on_enter=True)
+if st.button("Search"):
     response = search_in_gpt3(query)
     st.markdown(response, unsafe_allow_html=True)
 else:
