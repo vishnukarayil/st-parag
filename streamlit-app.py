@@ -32,7 +32,7 @@ if st.button("Search"):
     response = search_in_gpt3(query)
     st.markdown(response, unsafe_allow_html=True)
 else:
-    st.markdown("##Your result appear here")
-    st.markdown("###Disclaimer")
+    st.markdown("## Your result appear here")
+    st.markdown("### Disclaimer")
     st.markdown(" PARAG (short for 'Pathology AI Research Assistant with GPT4') is an educational tool that uses the GPT-3.5 language model developed by OpenAI to provide users with information related to pathology. While we strive to provide accurate and up-to-date information, PARAG is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of a qualified healthcare provider with any questions you may have regarding a medical condition. Use of PARAG is entirely at the user's own risk.")
     
