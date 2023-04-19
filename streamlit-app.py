@@ -25,7 +25,7 @@ def search_in_gpt3(query):
     return response.choices[0].text
 
 # Set up the form
-st.title("PARAG: Pathology AI Research Assistant with GPT4")
+st.title("PARAG: Pathology AI Research Assistant with GPT4 (v1.02alpha)")
 st.markdown("**Pathology education powered by ChatGPT. From the makers of www.pathonotes.com**")
 query = st.text_input("Search anything related to pathology:")
 if st.button("Search"):
