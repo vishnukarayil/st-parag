@@ -2,6 +2,11 @@ import openai
 import streamlit as st
 import os
 
+# Set the page title and icon
+favicon_path = os.path.join(os.path.dirname(__file__), 'cropped-PathonotesLogowithin.png')
+st.set_page_config(page_title="PARAG - Pathology AI Research Assistant", page_icon=favicon_path)
+
+
 # Authenticate OpenAI API Key
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
