@@ -14,7 +14,7 @@ openai.api_key = os.environ["OPENAI_API_KEY"]
 def search_in_gpt3(query):
     response = openai.Completion.create(
         model="text-davinci-003",
-        prompt = os.environ["OPENAI_API_PROMPT"]
+        prompt = os.environ["OPENAI_API_PROMPT"],
         max_tokens=1024,
         top_p=1,
         n=1,
