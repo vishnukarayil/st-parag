@@ -25,7 +25,7 @@ def search_in_gpt3(query):
     return response.choices[0].text
 
 # Set up the form
-st.title("PARAG: Pathology AI Research Assistant with GPT4 (v1.02alpha)")
+st.title("PARAG: Pathology AI Research Assistant with GPT3 (v1.02alpha)")
 st.markdown("**Pathology education powered by ChatGPT. From the makers of www.pathonotes.com**")
 query = st.text_input("Search anything related to pathology:")
 if st.button("Search"):
@@ -34,6 +34,6 @@ if st.button("Search"):
 else:
     st.markdown("## Your result appears here")
     st.markdown("### Disclaimer")
-    st.markdown("PARAG is an educational tool that uses the GPT-3 language model developed by OpenAI to provide users with information related to pathology. Since this is an alpha release, the language model is still learning, and the responses can be edgy at times. We always recommend the use of standard literatures for more accurate answers. Use at your own risk")
+    st.markdown("PARAG is an educational tool that uses the GPT-3.5 language model developed by OpenAI to provide users with information related to pathology. Since this is an alpha release, the language model is still learning, and the responses can be edgy at times. We always recommend the use of standard literatures for more accurate answers. Use at your own risk.")
     st.markdown("***Proudly presented by Dr. Vishnu K R***")
     
