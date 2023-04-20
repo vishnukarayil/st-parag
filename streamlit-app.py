@@ -41,6 +41,6 @@ else:
 st.markdown(
     """
     ---
-    Copyright © 2023, ***Proudly presented by Dr. Vishnu K R***
+    Copyright © 2023, **Proudly presented by Dr. Vishnu K R**
     """
 )
