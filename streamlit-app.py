@@ -38,4 +38,4 @@ else:
 
     
 # Add the static footer
-st.footer("Copyright © 2023, ***Proudly presented by Dr. Vishnu K R***")
+st.markdown("Copyright © 2023, ***Proudly presented by Dr. Vishnu K R***")
