@@ -34,7 +34,12 @@ if st.button("Search"):
 else:
     st.markdown("## [ Your result appears here ]")
     st.markdown("### Disclaimer")
-    st.markdown("PARAG is an educational tool that uses the GPT-3.5 language model developed by OpenAI to provide users with information related to pathology. Since this is an alpha release, the language model is still learning, and the responses can be edgy at times. We always recommend the use of standard literatures for more accurate answers. Use at your own risk.  The app name and all it's components are owned by the developer. The current version is free to use.")
+    st.markdown(
+        """
+        PARAG is an educational tool that uses the GPT-3.5 language model developed by OpenAI to provide users with information related to pathology. Since this is an alpha release, the language model is still learning, and the responses can be edgy at times. We always recommend the use of standard literatures for more accurate answers. Use at your own risk.
+        The app name and all it's components are owned by the developer. We follow the ethics trained by our Mentors at GMC, Trivandrum, hence believe in ***Open Source*** & free education. The full code is accessible at GitHub.
+        """
+    )
 
     
 # Add the static footer
