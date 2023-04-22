@@ -56,6 +56,6 @@ st.markdown(
     ---
     Copyright © 2023
 
-    Proudly presented by **Dr. Vishnu K R**
+    Proudly powered with [PathoNotes](https://pathonotes.com/wp/) by **Dr. Vishnu K R**
     """
 )
