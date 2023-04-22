@@ -26,7 +26,10 @@ def pubmed_search(search_term, search_db="pmc", retmax=10):
         try:
             article_title = article_record["PubmedArticle"]["MedlineCitation"]["Article"]["ArticleTitle"]
         except KeyError:
-            article_title = article_record["PubmedArticle"]["Article"]["ArticleTitle"]
+            try:
+                article_title = article_record["PubmedArticle"]["Article"]["ArticleTitle"]
+            except KeyError:
+                article_title = article_id
         article_url = f"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC{article_id}/"
 
         # Add the article title and URL to the list of article links
