@@ -18,17 +18,17 @@ def pubmed_search(search_term, search_db="pmc", retmax=10):
     # Loop through the article IDs and retrieve the article information
     for article_id in article_ids:
         # Get the article information from Pubmed Central
-        article_handle = Entrez.efetch(db=search_db, id=article_id, rettype="medline", retmode="text")
-        article_record = article_handle.read()
+        article_handle = Entrez.efetch(db=search_db, id=article_id, retmode="xml")
+        article_record = Entrez.read(article_handle)[0]
         article_handle.close()
 
         # Extract the article title and URL from the article information
-        article_title = article_record.split("\n")[1].strip()
+        article_title = article_record["MedlineCitation"]["Article"]["ArticleTitle"]
         article_url = f"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC{article_id}/"
 
         # Add the article title and URL to the list of article links
         article_links.append((article_title, article_url))
 
+    # Display the list of article links
     for article_title, article_url in article_links:
         st.write(f"[{article_title}]({article_url})")
-
