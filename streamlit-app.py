@@ -28,7 +28,7 @@ def search_in_gpt3(query,query_type):
     return response.choices[0].text
 
 # Set up the form
-st.title("PARAG: Pathology AI Research Assistant with GPT3 (v1.02alpha)")
+st.title("PARAG: Pathology AI Research Assistant with GPT3 (v1.03m)")
 st.markdown("Pathology education powered by **ChatGPT**")
 query_type_option = st.selectbox(
     'Type of answer',
