@@ -11,7 +11,7 @@ st.set_page_config(page_title="PARAG - Pathology AI Research Assistant", page_ic
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
 # Defining variables and arrays
-list_options = [("","Simple answer to the question") , ("A standard definition followed by a brief description of","Definition") , ("A structured detailed essay on","Essay")]
+list_options = {"Simple answer to the question":"" , "Definition":"A standard definition followed by a brief description of" , "Essay":"A structured detailed essay on"}
 
 # Define the search_in_gpt3 function
 def search_in_gpt3(query,query_type):
@@ -30,9 +30,10 @@ def search_in_gpt3(query,query_type):
 # Set up the form
 st.title("PARAG: Pathology AI Research Assistant with GPT3 (v1.02alpha)")
 st.markdown("Pathology education powered by **ChatGPT**")
-query_type = st.selectbox(
+query_type_option = st.selectbox(
     'Type of answer',
-    options=list_options)
+    list(list_options.keys()))
+query_type = list_options[query_type_option]
 query = st.text_input("Question / Search term")
 if st.button("Search"):
     response = search_in_gpt3(query,query_type)
