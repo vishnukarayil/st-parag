@@ -23,7 +23,7 @@ def pubmed_search(search_term, search_db="pmc", retmax=10):
         article_handle.close()
 
         # Extract the article title and URL from the article information
-        article_title = article_record["MedlineCitation"]["Article"]["ArticleTitle"]
+        article_title = article_record["PubmedArticle"]["MedlineCitation"]["Article"]["ArticleTitle"]
         article_url = f"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC{article_id}/"
 
         # Add the article title and URL to the list of article links
