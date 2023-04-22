@@ -1,4 +1,5 @@
-# PARAG: Pathology AI Research Assistant with GPT3 (v1.02alpha)
+# PARAG: Pathology AI Research Assistant with GPT3
+Current Version: 1.03
 
 ## Overview
 PARAG is an educational tool that uses the OpenAI API and Streamlit to provide users with information related to pathology. The app is designed to generate factually correct answers for queries submitted by the user. 
