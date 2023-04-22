@@ -28,4 +28,6 @@ def pubmed_search(search_term, search_db="pmc", retmax=10):
         # Add the article title and URL to the list of article links
         article_links.append((article_title, article_url))
 
-    return article_links
+    for article_title, article_url in article_links:
+        st.write(f"[{article_title}]({article_url})")
+
