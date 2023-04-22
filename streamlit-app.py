@@ -2,10 +2,19 @@ import openai
 import streamlit as st
 import os
 
+from pubmed_search import pubmed_search
+
 # Set the page title and icon
 favicon_path = os.path.join(os.path.dirname(__file__), 'cropped-PathonotesLogowithin.png')
 st.set_page_config(page_title="PARAG - Pathology AI Research Assistant", page_icon=favicon_path)
+disclaimer = """
+### Disclaimer
 
+PARAG is an educational tool that uses the GPT-3.5 language model developed by OpenAI to provide users with information related to pathology. Since this is an alpha release, the language model is still learning, and the responses can be edgy at times. We always recommend the use of standard literatures for more accurate answers. Use at your own risk.
+        
+The app name and all it's components are owned by the developer. We follow the ethics trained by our Mentors at GMC, Trivandrum, hence believe in ***Open Source*** & free education. The full code is accessible at GitHub.
+
+"""
 
 # Authenticate OpenAI API Key
 openai.api_key = os.environ["OPENAI_API_KEY"]
@@ -35,19 +44,16 @@ query_type_option = st.selectbox(
     list(list_options.keys()))
 query_type = list_options[query_type_option]
 query = st.text_input("Question / Search term")
+if st.button("PMC Articles"):
+    article_links = pubmed_search(search_term=query, search_db="pmc", retmax=10)
+    st.markdown(article_links)
+
 if st.button("Search"):
     response = search_in_gpt3(query,query_type)
     st.markdown(response, unsafe_allow_html=True)
 else:
     st.markdown("## [ Your result appears here ]")
-    st.markdown("### Disclaimer")
-    st.markdown(
-        """
-        PARAG is an educational tool that uses the GPT-3.5 language model developed by OpenAI to provide users with information related to pathology. Since this is an alpha release, the language model is still learning, and the responses can be edgy at times. We always recommend the use of standard literatures for more accurate answers. Use at your own risk.
-        
-        The app name and all it's components are owned by the developer. We follow the ethics trained by our Mentors at GMC, Trivandrum, hence believe in ***Open Source*** & free education. The full code is accessible at GitHub.
-        """
-    )
+    st.markdown(disclaimer)
 
     
 # Add the static footer
