@@ -10,11 +10,14 @@ st.set_page_config(page_title="PARAG - Pathology AI Research Assistant", page_ic
 # Authenticate OpenAI API Key
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
+# Defining variables and arrays
+list_options = {"Simple answer to the question":"" , "Definition":"A standard definition followed by a brief description of" , "Essay":"A structured detailed essay on"}
+
 # Define the search_in_gpt3 function
 def search_in_gpt3(query,query_type):
     response = openai.Completion.create(
         model="text-davinci-003",
-        prompt=f'respond like an AI assistant for pathology research. We need it to generate factually correct answers for queries submitted by the user. User is a student in pathology and his questions are all related to pathology. The api will be used in a web app that is accessed in the pathology library pc in our medical college. There is no room for error. A single instance of a grossly wrong fact will ruin our reputation. So first, the api should cross check whether the question is correct. If the user ask about a made uo word which is not a recognizable disease,you should ask the user to rephrase the question. Use markdown syntax for styling. Use headings wherever necessary. \n\nQuery: {query_type} {query}\n\nResponse:',
+        prompt=f'respond like an AI assistant for pathology research. We need it to generate factually correct answers for queries submitted by the user. User is a student in pathology and his questions are all related to pathology. The api will be used in a web app that is accessed in the pathology library pc in our medical college. There is no room for error. A single instance of a grossly wrong fact will ruin our reputation. So first, the api should cross check whether the question is correct. If the user ask about a made uo word which is not a recognizable disease,you should ask the user to rephrase the question. Use markdown syntax for styling. Use headings wherever necessary. \n\nQuery: {query_type} of {query}\n\nResponse:',
         max_tokens=1024,
         top_p=1,
         n=1,
@@ -25,12 +28,13 @@ def search_in_gpt3(query,query_type):
     return response.choices[0].text
 
 # Set up the form
-st.title("PARAG: Pathology AI Research Assistant with GPT3 (v1.02alpha)")
+st.title("PARAG: Pathology AI Research Assistant with GPT3 (v1.03m)")
 st.markdown("Pathology education powered by **ChatGPT**")
-query_type = st.selectbox(
+query_type_option = st.selectbox(
     'Type of answer',
-    ('A brief concise description of','A structured and detailed essay of','Immunophenotype and molecular genetics of'))
-query = st.text_input("Search anything related to pathology:")
+    list(list_options.keys()))
+query_type = list_options[query_type_option]
+query = st.text_input("Question / Search term")
 if st.button("Search"):
     response = search_in_gpt3(query,query_type)
     st.markdown(response, unsafe_allow_html=True)
