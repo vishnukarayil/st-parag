@@ -1,4 +1,5 @@
 from Bio import Entrez
+import streamlit as st
 
 def pubmed_search(search_term, search_db="pmc", retmax=10):
     # Set the email address associated with your NCBI account
