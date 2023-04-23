@@ -1,11 +1,11 @@
 import pymed
 
-def pubmed_search(query):
+def search_pmc_articles(query):
     # Initialize the PubMed object
     p = pymed.PubMed()
 
     # Search for articles with the given query in their titles
-    results = p.query(query, db='pmc', reldate=365)
+    results = p.query(query, reldate=365, page_size=50)
 
     # Create a list of dictionaries with article titles and links
     articles = []
