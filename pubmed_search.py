@@ -1,6 +1,6 @@
 import pymed
 
-def search_pmc_articles(query):
+def pubmed_search(query):
     # Initialize the PubMed object
     p = pymed.PubMed()
 
