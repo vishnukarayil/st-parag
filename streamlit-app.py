@@ -58,7 +58,7 @@ with button_col1:
                 response = search_in_gpt3(query,query_type)
 with button_col2:
         if st.button("Show PMC Articles"):
-                article_links = pubmed_search(search_term=query, search_db="pmc", retmax=10)
+                article_links = pubmed_search(query, search_db="pmc", retmax=10)
                 response = article_links
         
 # Show results
