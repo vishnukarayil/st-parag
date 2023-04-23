@@ -4,9 +4,10 @@ import os
 
 from pubmed_search import pubmed_search
 
-# Set the page title and icon
+# Set the fixed form component variables
 favicon_path = os.path.join(os.path.dirname(__file__), 'cropped-PathonotesLogowithin.png')
 st.set_page_config(page_title="PARAG - Pathology AI Research Assistant", page_icon=favicon_path)
+response = "## [ Your result appears here ]"
 disclaimer = """
 ### Disclaimer
 
@@ -15,12 +16,13 @@ PARAG is an educational tool that uses the GPT-3.5 language model developed by O
 The app name and all it's components are owned by the developer. We follow the ethics trained by our Mentors at GMC, Trivandrum, hence believe in ***Open Source*** & free education. The full code is accessible at GitHub.
 
 """
+list_options = {"Doubt (Ask as if you are asking a real Person)":"" , "Definition":"A standard definition followed by a brief description of" , "Essay":"A structured detailed essay on"}
 
 # Authenticate OpenAI API Key
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
 # Defining variables and arrays
-list_options = {"Doubt (Ask as if you are asking a real Person)":"" , "Definition":"A standard definition followed by a brief description of" , "Essay":"A structured detailed essay on"}
+
 
 # Define the search_in_gpt3 function
 def search_in_gpt3(query,query_type):
@@ -51,19 +53,16 @@ with search_col2:
 button_col1, button_col2 = st.columns([3,1])
 with button_col1:
         if st.button("Search"):
-            response = search_in_gpt3(query,query_type)
-            st.markdown(response, unsafe_allow_html=True)  
+                response = search_in_gpt3(query,query_type)
+                disclaimer = ""
 with button_col2:
         if st.button("PMC Articles"):
                 article_links = pubmed_search(search_term=query, search_db="pmc", retmax=10)
-                st.markdown(article_links)
+                response = article_links
+                disclaimer = ""
         
-if st.button("Search"):
-    response = search_in_gpt3(query,query_type)
-    st.markdown(response, unsafe_allow_html=True)
-else:
-    st.markdown("## [ Your result appears here ]")
-    st.markdown(disclaimer)
+# Show results
+st.markdown(response + disclaimer, unsafe_allow_html=True)        
 
     
 # Add the static footer
