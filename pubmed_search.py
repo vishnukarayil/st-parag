@@ -1,13 +1,21 @@
 import requests
-from bs4 import BeautifulSoup
+import xml.etree.ElementTree as ET
 
-def search_doaj(query):
-    url = f"https://doaj.org/api/v1/search/articles/oss?pageSize=1000&q=title%3A%22{query}%22"
-    response = requests.get(url)
-    soup = BeautifulSoup(response.content, "html.parser")
+def search_pubmed(query):
+    base_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
+    search_url = base_url + "esearch.fcgi?db=pmc&retmax=10&term=" + query
+    search_result = requests.get(search_url)
+    root = ET.fromstring(search_result.content)
+    id_list = []
+    for id in root.findall("./IdList/Id"):
+        id_list.append(id.text)
     results = []
-    for article in soup.find_all("article"):
-        title = article.find("a", {"class": "title_link"}).text
-        link = article.find("a", {"class": "title_link"})["href"]
-        results.append({"title": title, "link": link})
+    for id in id_list:
+        summary_url = base_url + "esummary.fcgi?db=pmc&id=" + id
+        summary_result = requests.get(summary_url)
+        root = ET.fromstring(summary_result.content)
+        title = root.find("./DocSum/Item[@Name='Title']").text
+        link = "https://www.ncbi.nlm.nih.gov/pmc/articles/" + id
+        if query.lower() in title.lower():
+            results.append({'title': title, 'link': link})
     return results
