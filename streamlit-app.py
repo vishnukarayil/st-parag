@@ -48,7 +48,7 @@ with search_col2:
                 list(list_options.keys()))
         query_type = list_options[query_type_option]
         
-botton_col1, button_col2 = st.columns([3,1])
+button_col1, button_col2 = st.columns([3,1])
 with button_col1:
         if st.button("Search"):
             response = search_in_gpt3(query,query_type)
