@@ -3,7 +3,7 @@ import urllib.parse
 
 def search_pmc_articles(query):
     # Initialize the Entrez object
-    e = entrez()
+    e = entrez.Entrez()
 
     # Encode the query for use in the Entrez search API
     encoded_query = urllib.parse.quote(query)
