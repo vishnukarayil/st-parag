@@ -2,7 +2,7 @@ import openai
 import streamlit as st
 import os
 
-from pubmed_search import search_pmc_articles
+from pubmed_search import search_doaj
 
 # Set the fixed form component variables
 favicon_path = os.path.join(os.path.dirname(__file__), 'cropped-PathonotesLogowithin.png')
@@ -58,7 +58,7 @@ with button_col1:
                 response = search_in_gpt3(query,query_type)
 with button_col2:
         if st.button("Show PMC Articles"):
-                article_links = search_pmc_articles(query)
+                article_links = search_doaj(query)
                 # change this to article_links
                 response = "This feature is under construction. \n" + article_links
         
