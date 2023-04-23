@@ -58,9 +58,11 @@ with button_col1:
                 response = search_in_gpt3(query,query_type)
 with button_col2:
         if st.button("Show PMC Articles"):
-                article_links = search_doaj(query)
-                # change this to article_links
-                response = "This feature is under construction. \n" + article_links
+            article_links = search_doaj(query)
+            response = "List of articles:\n\n"
+            for article in article_links:
+                response += f"{article['title']}\n{article['link']}\n\n"
+            st.write(response)
         
 # Show results
 st.markdown(response , unsafe_allow_html=True)        
