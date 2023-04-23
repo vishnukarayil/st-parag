@@ -13,9 +13,12 @@ def search_pubmed(query):
     for id in id_list:
         summary_url = base_url + "esummary.fcgi?db=pmc&id=" + id
         summary_result = requests.get(summary_url)
-        root = ET.fromstring(summary_result.content)
-        title = root.find("./DocSum/Item[@Name='Title']").text
-        link = "https://www.ncbi.nlm.nih.gov/pmc/articles/" + id
-        if query.lower() in title.lower():
-            results.append({'title': title, 'link': link})
+        try:
+            root = ET.fromstring(summary_result.content)
+            title = root.find("./DocSum/Item[@Name='Title']").text
+            link = "https://www.ncbi.nlm.nih.gov/pmc/articles/" + id
+            if query.lower() in title.lower():
+                results.append({'title': title, 'link': link})
+        except ET.ParseError as e:
+            print(f"Error parsing XML for article ID {id}: {e}")
     return results
