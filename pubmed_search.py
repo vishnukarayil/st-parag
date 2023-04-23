@@ -38,7 +38,7 @@ def pubmed_search(query, retmax=10):
     pmids = results["idlist"]
 
     # Build the article links
-    article_links = f"This feature is coming soon"
+    article_links = ""
     for pmid in pmids:
         link = f"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC{pmid}/"
         title = f"PMC{pmid}"
