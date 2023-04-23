@@ -1,4 +1,4 @@
-from pyentrez import entrez
+from pyEntrez import entrez
 import urllib.parse
 
 def search_pmc_articles(query):
