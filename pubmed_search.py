@@ -1,7 +1,7 @@
 import requests
 import xml.etree.ElementTree as ET
 
-def search_medical_journals(query, databases=['pmc', 'pubmed']):
+def search_pubmed(query, databases=['pmc', 'pubmed']):
     base_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
     db_param = ",".join(databases)
     search_url = base_url + f"esearch.fcgi?db={db_param}&retmax=10&term=" + query
