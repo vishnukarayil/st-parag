@@ -59,7 +59,7 @@ with button_col1:
 with button_col2:
         if st.button("Show PMC Articles"):
             article_links = search_pubmed(query)
-            response = "List of articles:\n\n" + article_links
+            response = article_links
         
 # Show results
 st.markdown(response , unsafe_allow_html=True)        
