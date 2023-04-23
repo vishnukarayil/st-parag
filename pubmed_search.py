@@ -1,40 +1,47 @@
-from Bio import Entrez
-import streamlit as st
+import requests
+from urllib.parse import urlencode
 
-def pubmed_search(search_term, search_db="pmc", retmax=10):
-    # Set the email address associated with your NCBI account
-    Entrez.email = "vishnu.karayil@gmail.com"
+def pubmed_search(query, retmax=10):
+    """
+    Search for articles in PubMed Central using a query term.
 
-    # Perform the search
-    handle = Entrez.esearch(db=search_db, term=search_term, retmax=retmax)
-    record = Entrez.read(handle)
+    Parameters:
+    - query (str): The search term.
+    - retmax (int): The maximum number of articles to return (default: 10).
 
-    # Get the list of article IDs from the search results
-    article_ids = record["IdList"]
+    Returns:
+    - article_links (str): A Markdown-formatted string containing links to the matching articles.
+    """
+    base_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
+    search_url = base_url + "esearch.fcgi"
 
-    # Create an empty list to hold the article titles and URLs
-    article_links = []
+    # Build the query parameters
+    params = {
+        "db": "pmc",
+        "term": query,
+        "retmax": retmax,
+        "retmode": "json"
+    }
 
-    # Loop through the article IDs and retrieve the article information
-    for article_id in article_ids:
-        # Get the article information from Pubmed Central
-        article_handle = Entrez.efetch(db=search_db, id=article_id, retmode="xml")
-        article_record = Entrez.read(article_handle)[0]
-        article_handle.close()
+    # Make the API request
+    response = requests.get(search_url + "?" + urlencode(params))
 
-        # Extract the article title and URL from the article information
-        try:
-            article_title = article_record["PubmedArticle"]["MedlineCitation"]["Article"]["ArticleTitle"]
-        except KeyError:
-            try:
-                article_title = article_record["PubmedArticle"]["OtherAbstract"][0]["_text"]["Article"]["ArticleTitle"]
-            except KeyError:
-                article_title = article_id
-        article_url = f"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC{article_id}/"
+    # Parse the response JSON
+    results = response.json()["esearchresult"]
 
-        # Add the article title and URL to the list of article links
-        article_links.append((article_title, article_url))
+    # Check for errors
+    if "errorlist" in results:
+        error = results["errorlist"]["error"][0]["message"]
+        return f"Error: {error}"
 
-    # Display the list of article links
-    for article_title, article_url in article_links:
-        st.write(f"[{article_title}]({article_url})")
+    # Extract the PMIDs
+    pmids = results["idlist"]
+
+    # Build the article links
+    article_links = ""
+    for pmid in pmids:
+        link = f"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC{pmid}/"
+        title = f"PMC{pmid}"
+        article_links += f"- [{title}]({link})\n"
+
+    return article_links
