@@ -7,8 +7,10 @@ from pubmed_search import pubmed_search
 # Set the fixed form component variables
 favicon_path = os.path.join(os.path.dirname(__file__), 'cropped-PathonotesLogowithin.png')
 st.set_page_config(page_title="PARAG - Pathology AI Research Assistant", page_icon=favicon_path)
-response = "## [ Your result appears here ]"
-disclaimer = """
+response = """
+## [ Your result appears here ]
+
+
 ### Disclaimer
 
 PARAG is an educational tool that uses the GPT-3.5 language model developed by OpenAI to provide users with information related to pathology. Since this is an alpha release, the language model is still learning, and the responses can be edgy at times. We always recommend the use of standard literatures for more accurate answers. Use at your own risk.
@@ -39,7 +41,7 @@ def search_in_gpt3(query,query_type):
     return response.choices[0].text
 
 # Set up the form
-st.title("PARAG: Pathology AI Research Assistant with GPT3 (v1.03m)")
+st.title("PARAG: Pathology AI Research Assistant with GPT3 (v1.12)")
 st.markdown("Pathology education powered by **ChatGPT**")
 search_col1, search_col2 = st.columns([3,1])
 with search_col1:
@@ -54,15 +56,13 @@ button_col1, button_col2 = st.columns([3,1])
 with button_col1:
         if st.button("Search"):
                 response = search_in_gpt3(query,query_type)
-                disclaimer = ""
 with button_col2:
         if st.button("PMC Articles"):
                 article_links = pubmed_search(search_term=query, search_db="pmc", retmax=10)
                 response = article_links
-                disclaimer = ""
         
 # Show results
-st.markdown(response + disclaimer, unsafe_allow_html=True)        
+st.markdown(response , unsafe_allow_html=True)        
 
     
 # Add the static footer
