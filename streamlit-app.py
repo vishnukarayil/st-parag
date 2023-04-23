@@ -39,11 +39,15 @@ def search_in_gpt3(query,query_type):
 # Set up the form
 st.title("PARAG: Pathology AI Research Assistant with GPT3 (v1.03m)")
 st.markdown("Pathology education powered by **ChatGPT**")
-query_type_option = st.selectbox(
-    'Type of question',
-    list(list_options.keys()))
-query_type = list_options[query_type_option]
-query = st.text_input("Question / Search term")
+col1, col2 = st.columns([3,1])
+with col1:
+        query = st.text_input("Question / Search term")   
+with col2:
+        query_type_option = st.selectbox(
+                'Type of question',
+                list(list_options.keys()))
+        query_type = list_options[query_type_option]
+        
 if st.button("PMC Articles"):
     article_links = pubmed_search(search_term=query, search_db="pmc", retmax=10)
     st.markdown(article_links)
