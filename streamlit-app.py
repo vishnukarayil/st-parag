@@ -41,7 +41,7 @@ def search_in_gpt3(query,query_type):
     return response.choices[0].text
 
 # Set up the form
-st.title("PARAG: Pathology AI Research Assistant with GPT3 (v1.12)")
+st.title("PARAG: Pathology AI Research Assistant with GPT3 (v1.1)")
 st.markdown("Pathology education powered by **ChatGPT**")
 search_col1, search_col2 = st.columns([3,1])
 with search_col1:
@@ -52,12 +52,12 @@ with search_col2:
                 list(list_options.keys()))
         query_type = list_options[query_type_option]
         
-button_col1, button_col2 = st.columns([3,1])
+button_col1, button_col2 = st.columns(2)
 with button_col1:
-        if st.button("Search"):
+        if st.button("Search AI"):
                 response = search_in_gpt3(query,query_type)
 with button_col2:
-        if st.button("PMC Articles"):
+        if st.button("Show PMC Articles"):
                 article_links = pubmed_search(search_term=query, search_db="pmc", retmax=10)
                 response = article_links
         
