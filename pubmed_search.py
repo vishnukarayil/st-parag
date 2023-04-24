@@ -3,7 +3,7 @@ import xml.etree.ElementTree as ET
 
 def search_pubmed(query):
     base_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
-    search_url = base_url + "esearch.fcgi?db=pmc&retmax=500&term=" + query
+    search_url = base_url + "esearch.fcgi?db=pmc&retmax=50&term=" + query
     search_result = requests.get(search_url)
     root = ET.fromstring(search_result.content)
     id_list = []
