@@ -58,10 +58,12 @@ with button_col1:
                 response = search_in_gpt3(query,query_type)
 with button_col2:
         if st.button("Show PMC Articles"):
-            article_links = search_google_scholar(query)
-            response = ""
-            for article in article_links:
-                response += f"[{article['title']}]({article['link']})\n\n"
+            articles = search_google_scholar("deep learning")
+            for article in articles:
+                    st.markdown(article["title"])
+                    st.markdown(article["link"])
+                    st.markdown(article["authors"])
+                    st.markdown()
                 
         
 # Show results
