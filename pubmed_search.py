@@ -1,24 +1,17 @@
 import requests
-import xml.etree.ElementTree as ET
+from bs4 import BeautifulSoup
 
-def search_pubmed(query):
-    base_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
-    search_url = base_url + "esearch.fcgi?db=pmc&retmax=50&term=" + query
-    search_result = requests.get(search_url)
-    root = ET.fromstring(search_result.content)
-    id_list = []
-    for id in root.findall("./IdList/Id"):
-        id_list.append(id.text)
-    results = []
-    for id in id_list:
-        summary_url = base_url + "esummary.fcgi?db=pmc&id=" + id
-        summary_result = requests.get(summary_url)
-        try:
-            root = ET.fromstring(summary_result.content)
-            title = root.find("./DocSum/Item[@Name='Title']").text
-            link = "https://www.ncbi.nlm.nih.gov/pmc/articles/" + id
-            if query.lower() in title.lower():
-                results.append({'title': title, 'link': link})
-        except ET.ParseError as e:
-            print(f"Error parsing XML for article ID {id}: {e}")
-    return results
+def search_google_scholar(query):
+    """
+    Searches for a phrase in Google Scholar and returns a list of articles.
+    """
+    url = f"https://scholar.google.com/scholar?q={query}"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, "html.parser")
+    articles = []
+    for result in soup.select(".gs_r"):
+        title = result.select_one(".gs_rt a").text.strip()
+        link = result.select_one(".gs_rt a")["href"]
+        authors = result.select_one(".gs_a").text.strip()
+        articles.append({"title": title, "link": link, "authors": authors})
+    return articles
